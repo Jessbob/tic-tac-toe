@@ -15,3 +15,40 @@ def printBoard(board):
     print(" " + board[4] + " | " + board[5] + " | " + board[6])
     print("-----------")
     print(" " + board[7] + " | " + board[8] + " | " + board[9])
+
+
+def isBoardFull(board):
+    if board.count(" ") > 1:
+        return False
+    else:
+        return True
+
+
+def isWinner(b, l):
+    return (b[1] == l and b[2] == l and b[3] == l) or
+    (b[4] == l and b[5] == l and b[6] == l) or
+    (b[7] == l and b[8] == l and b[9] == l) or
+    (b[1] == l and b[4] == l and b[7] == l) or
+    (b[2] == l and b[5] == l and b[8] == l) or
+    (b[3] == l and b[6] == l and b[9] == l) or
+    (b[1] == l and b[5] == l and b[9] == l) or
+    (b[3] == l and b[5] == l and b[7] == l)
+
+
+def playerMove():
+    run = True
+    while run:
+        move = input("Please select a space")
+        try:
+            move = int(move)
+            if move > 0 and move is < 10:
+                if spaceIsFree(move):
+                    run = False
+                    insertLetter("X", move)
+                else:
+                    print("Sorry that space is taken")
+            else:
+                print("Please select a number between 1 and 9")
+
+        except:
+            print("Please type a number")
