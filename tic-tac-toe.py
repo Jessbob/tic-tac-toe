@@ -25,14 +25,14 @@ def isBoardFull(board):
 
 
 def isWinner(b, l):
-    return (b[1] == l and b[2] == l and b[3] == l) or
-    (b[4] == l and b[5] == l and b[6] == l) or
-    (b[7] == l and b[8] == l and b[9] == l) or
-    (b[1] == l and b[4] == l and b[7] == l) or
-    (b[2] == l and b[5] == l and b[8] == l) or
-    (b[3] == l and b[6] == l and b[9] == l) or
-    (b[1] == l and b[5] == l and b[9] == l) or
-    (b[3] == l and b[5] == l and b[7] == l)
+    return ((b[1] == l and b[2] == l and b[3] == l) or
+            (b[4] == l and b[5] == l and b[6] == l) or
+            (b[7] == l and b[8] == l and b[9] == l) or
+            (b[1] == l and b[4] == l and b[7] == l) or
+            (b[2] == l and b[5] == l and b[8] == l) or
+            (b[3] == l and b[6] == l and b[9] == l) or
+            (b[1] == l and b[5] == l and b[9] == l) or
+            (b[3] == l and b[5] == l and b[7] == l))
 
 
 def playerMove():
@@ -41,7 +41,7 @@ def playerMove():
         move = input("Please select a space")
         try:
             move = int(move)
-            if move > 0 and move is < 10:
+            if move > 0 and move < 10:
                 if spaceIsFree(move):
                     run = False
                     insertLetter("X", move)
@@ -52,3 +52,83 @@ def playerMove():
 
         except:
             print("Please type a number")
+
+
+def computerMove():
+    possibleMoves = [x for x, letter in enumerate(
+        board) if letter == " " and x != 0]
+    move = 0
+
+    for let in ["O", "X"]:
+        for i in possibleMoves:
+            boardCopy = board[:]
+            boardCopy[i] = let
+            if isWinner(boardCopy, let):
+                move = i
+                return move
+
+    cornersOpen = []
+    for i in possibleMoves:
+        if i in [1, 3, 7, 9]:
+            cornersOpen.append(i)
+
+        if len(cornersOpen) > 0:
+            move = selectRandom(cornersOpen)
+            return move
+
+    if 5 in possibleMoves:
+        move = 5
+        return move
+
+    edgesOpen = []
+    for i in possibleMoves:
+        if i in [2, 4, 6, 8]:
+            edgesOpen.append(i)
+
+        if len(edgesOpen) > 0:
+            move = selectRandom(edgesOpen)
+            return move
+
+
+def selectRandom(li):
+    import random
+    ln = len(li)
+    r = random.randrange(0, ln)
+    return li(r)
+
+
+def main():
+    print("Welcome to the Tic-Tac-Toe Championship 2020")
+    printBoard(board)
+
+    while not(isBoardFull(board)):
+        if not(isWinner(board, "O")):
+            playerMove()
+            printBoard(board)
+        else:
+            print("You lose")
+            break
+
+        if not(isWinner(board, "X")):
+            move = computerMove()
+            if move == 0:
+                print(" ")
+            else:
+                insertLetter("O", move)
+                print("Computer selected position", move, ":")
+                printBoard(board)
+
+        else:
+            print("You Win!!! Whoohoo World Champion 2020!!!")
+            break
+
+
+while True:
+    x = input("Are you ready to rumble?!?! (y/n)")
+    if x.lower() == "y":
+        board = [" " for x in range(10)]
+        print("XOXOXOXOXOXOXOXOXOXOXOXOXOX")
+        main()
+
+    else:
+        break
