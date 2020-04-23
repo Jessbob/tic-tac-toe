@@ -10,11 +10,13 @@ def spaceIsFree(pos):
 
 
 def printBoard(board):
+    print(" ")
     print(" " + board[1] + " | " + board[2] + " | " + board[3])
     print("-----------")
     print(" " + board[4] + " | " + board[5] + " | " + board[6])
     print("-----------")
     print(" " + board[7] + " | " + board[8] + " | " + board[9])
+    print(" ")
 
 
 def isBoardFull(board):
@@ -38,7 +40,7 @@ def isWinner(b, l):
 def playerMove():
     run = True
     while run:
-        move = input("Please select a space")
+        move = input("Please select a space ")
         try:
             move = int(move)
             if move > 0 and move < 10:
@@ -46,12 +48,12 @@ def playerMove():
                     run = False
                     insertLetter("X", move)
                 else:
-                    print("Sorry that space is taken")
+                    print("Sorry that space is taken ")
             else:
-                print("Please select a number between 1 and 9")
+                print("Please select a number between 1 and 9 ")
 
         except:
-            print("Please type a number")
+            print("Please type a number ")
 
 
 def computerMove():
@@ -94,7 +96,7 @@ def selectRandom(li):
     import random
     ln = len(li)
     r = random.randrange(0, ln)
-    return li(r)
+    return li[r]
 
 
 def main():
@@ -121,13 +123,17 @@ def main():
         else:
             print("You Win!!! Whoohoo World Champion 2020!!!")
             break
+    if isBoardFull(board):
+        print("Tie game")
 
 
 while True:
-    x = input("Are you ready to rumble?!?! (y/n)")
+    x = input("Are you ready to rumble?!?! (y/n) ")
     if x.lower() == "y":
         board = [" " for x in range(10)]
-        print("XOXOXOXOXOXOXOXOXOXOXOXOXOX")
+        print(" ")
+        print("================================")
+        print(" ")
         main()
 
     else:
