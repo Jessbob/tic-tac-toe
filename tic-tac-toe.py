@@ -123,6 +123,7 @@ def main():
         else:
             print("You Win!!! Whoohoo World Champion 2020!!!")
             break
+
     if isBoardFull(board):
         print("Tie game")
 
